@@ -9,7 +9,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="viewport" content="initial-scale=1, maximum-scale=1">
       <!-- site metas -->
-      <title>Eflyer</title>
+      <title>DriveNow</title>
       
       <!-- bootstrap css -->
       <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
@@ -44,13 +44,29 @@
                   <div class="col-sm-12">
                      <div class="custom_menu">
                         <ul>
-                           <li><a href="index.html">Page d'acceuil</a></li>
-                           <li><a href="login.html">se connecter</a></li>
-                           <li><a href="#">creer compte</a></li>
-                           <li><a href="#">Réserver</a></li>
-                           <li><a href="#">louer</a></li>
-                           <li><a href="#">A propos</a></li>
-                           </ul>
+                           <?php
+                              session_start();
+                              include "../dao/dao_client.php";
+                              $dao = new DaoClient();
+                              $client = $dao->findPersonne($_SESSION['cin']);
+                              if ($client != null){
+                                 echo '<li><a href="index.php">Page d\'acceuil</a></li>
+                                 <li><a href="reservation.php?numImma=">Réserver</a></li>
+                                 <li><a href="location.php?numImma=">Louer</a></li>
+                                 <li><a href="about.php">A propos</a></li>';
+                                 
+                              }
+
+                              else{
+                                 echo '<li><a href="index.php">Page d\'acceuil</a></li>
+                                 <li><a href="connexion.php">Se connecter</a></li>
+                                 <li><a href="creation.php">Creer compte</a></li>
+                                 <li><a href="reservation.php?numImma=">Réserver</a></li>
+                                 <li><a href="location.php?numImma=">Louer</a></li>
+                                 <li><a href="about.php">A propos</a></li>';
+                              }
+                           echo '
+                        </ul>
                      </div>
                   </div>
                </div>
@@ -62,7 +78,7 @@
             <div class="container">
                <div class="row">
                   <div class="col-sm-12">
-                     <div class="logo"><a href="index.html"><img src="images/logo.png"></a></div>
+                     <div class="logo"><a href="connecte.php"><img src="images/logo.png"></a></div>
                   </div>
                </div>
             </div>
@@ -73,19 +89,34 @@
             <div class="container">
                <div class="containt_main">
                   <div id="mySidenav" class="sidenav">
-                     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                     <a href="index.html">Page d'acceuil</a>
-                     <a href="connexion.html">Se connecter</a>
-                     <a href="#">creer compte</a>
-                     <a href="#">Réserver</a>
-                     <a href="#">louer</a>
-                  </div>
-                  <span class="toggle_icon" onclick="openNav()"><img src="images/toggle-icon.png"></span>
+                     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>';
+                     
+                        //session_start();
+                        //include "../dao/dao_client.php";
+                        $dao = new DaoClient();
+                        $client = $dao->findPersonne($_SESSION['cin']);
+                        if ($client != null){
+                            echo '<a href="compte.php">'.$client->getPrenom().' '.$client->getNom().'</a>
+                            <a href="parametres.html">Paramétres</a>
+                            <a href="../controller/connexion-controller.php?action=deconnexion">Deconnexion</a>
+                            </div>
+                            <span class="toggle_icon" onclick="openNav()"><img src="images/user-icon.png"></span>';
+                        }
 
+                        else{
+                            echo '<a href="index.php">Page d\'acceuil</a>
+                            <a href="connexion.php">Se connecter</a>
+                            <a href="creation.php">Créer compte</a>
+                            <a href="reservation.php">Réserver</a>
+                            <a href="location.php">Louer</a>
+                            </div>
+                           <span class="toggle_icon" onclick="openNav()"><img src="images/toggle-icon.png"></span>';
+                        }
+                     ?>
                   <div class="main">
                      <!-- Another variation with a button -->
                      <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search this blog">
+                        <input type="search" class="form-control" placeholder="chercher votre voiture">
                         <div class="input-group-append">
                            <button class="btn btn-secondary" type="button" style="background-color: #f26522; border-color:#f26522 ">
                            <i class="fa fa-search"></i>
@@ -109,7 +140,6 @@
                               </a>
                         </div>
                      </div>
-                     
                   </div>
                </div>
             </div>
@@ -124,7 +154,7 @@
                         <div class="row">
                            <div class="col-sm-12">
                               <h1 class="banner_taital"  >commencer <br>votre voiture preferée </h1>
-                              <div class="buynow_bt"><a href="#"  >reserver  maintenant</a></div>
+                              <div class="buynow_bt"><a href="reservation.php?numImma="  >reserver  maintenant</a></div>
                            </div>
                         </div>
                      </div>
@@ -132,7 +162,7 @@
                         <div class="row">
                            <div class="col-sm-12">
                               <h1 class="banner_taital"  >commencer <br>votre voiture de reve</h1>
-                              <div class="buynow_bt"><a href="#"  >louer maintenant</a></div>
+                              <div class="buynow_bt"><a href="location.php?numImma="  >louer maintenant</a></div>
                            </div>
                         </div>
                      </div>
@@ -150,7 +180,7 @@
          <!-- banner section end -->
       </div>
       <!-- banner bg main end -->
-      <!-- fashion section start -->
+      <!-- family cars section start -->
       <div class="fashion_section">
          <div id="main_slider" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
@@ -162,11 +192,12 @@
                            <div class="col-lg-4 col-sm-4">
                               <div class="box_main">
                                  <h4 class="shirt_text">Renault Grand Scenic</h4>
-                                 <p class="price_text">Prix  <span style="color: #262626;">3000 dh</span></p>
+                                 <p class="price_text">Prix  <span style="color: #262626;">150 dh/j</span></p>
                                  <div class="tshirt_img"><img src="images/Renault.png"></div>
                                  <p >Ce monospace parfaitement adapté aux familles nombreuses dispose de 7 places et d'un coffre dont le volume dépasse les 700 litres.</p>
                                  <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Réserver maintenant</a></div>
+                                    <div class="buy_bt"><a href="reservation.php?numImma=BK-630NE">Réserver maintenant</a></div>
+                                    <div class="buy_bt"><a href="locztion.php?numImma=BK-630NE">Louer maintenant</a></div>
                                     <div class="seemore_bt"><a href="#">Voir plus</a></div>
                                  </div>
                               </div>
@@ -174,11 +205,12 @@
                            <div class="col-lg-4 col-sm-4">
                               <div class="box_main">
                                  <h4 class="shirt_text">Dacia Duster</h4>
-                                 <p class="price_text">Prix  <span style="color: #262626;">3000 dh</span></p>
+                                 <p class="price_text">Prix  <span style="color: #262626;">150 dh/</span></p>
                                  <div class="tshirt_img"><img src="images/Dacia.png"></div>
                                  <p>Certes, la Dacia Duster n'est pas la voiture aux lignes les plus esthétiques, mais il s'agit sûrement de la voiture familiale au meilleur rapport qualité/prix. </p>
                                  <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Réserver maintenant</a></div>
+                                    <div class="buy_bt"><a href="reservation.php?numImma=ST-016-EL">Réserver maintenant</a></div>
+                                    <div class="buy_bt"><a href="location.php?numImma=ST-016-EL">Louer maintenant</a></div>
                                     <div class="seemore_bt"><a href="#">Voir plus</a></div>
                                  </div>
                               </div>
@@ -186,11 +218,12 @@
                            <div class="col-lg-4 col-sm-4">
                               <div class="box_main">
                                  <h4 class="shirt_text">Mercedes Classe B</h4>
-                                 <p class="price_text">Prix  <span style="color: #262626;">3000 dh</span></p>
+                                 <p class="price_text">Prix  <span style="color: #262626;">200 dh/j</span></p>
                                  <div class="tshirt_img"><img src="images/Mercedes.png"></div>
                                  <p> le Mercedes Classe B est un monospace haut de gamme qui ravira toute la famille, le Mercedes Classe B allie des lignes modernes à un large espace intérieur. </p>
                                  <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Réserver maintenant</a></div>
+                                    <div class="buy_bt"><a href="reservation.php?numImma=FC-334-ZF">Réserver maintenant</a></div>
+                                    <div class="buy_bt"><a href="location.php?numImma=FC-334-ZF">Louer maintenant</a></div>
                                     <div class="seemore_bt"><a href="#">Voir plus</a></div>
                                  </div>
                               </div>
@@ -212,7 +245,8 @@
                                  <p >Ce monospace parfaitement adapté aux familles nombreuses dispose de 7 places et d'un coffre dont le volume dépasse les 700 litres.</p>
 
                                  <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Réserver maintenant</a></div>
+                                 <div class="buy_bt"><a href="reservation.php?numImma=BK-630NE">Réserver maintenant</a></div>
+                                    <div class="buy_bt"><a href="locztion.php?numImma=BK-630NE">Louer maintenant</a></div>
                                     <div class="seemore_bt"><a href="#">Voir plus</a></div>
                                  </div>
                               </div>
@@ -225,7 +259,8 @@
                                  <p>Certes, la Dacia Duster n'est pas la voiture aux lignes les plus esthétiques, mais il s'agit sûrement de la voiture familiale au meilleur rapport qualité/prix. </p>
 
                                  <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Réserver maintenant</a></div>
+                                    <div class="buy_bt"><a href="reservation.php?numImma=ST-016-EL">Réserver maintenant</a></div>
+                                    <div class="buy_bt"><a href="location.php?numImma=ST-016-EL">Louer maintenant</a></div>
                                     <div class="seemore_bt"><a href="#">Voir plus</a></div>
                                  </div>
                               </div>
@@ -238,7 +273,8 @@
                                  <p> le Mercedes Classe B est un monospace haut de gamme qui ravira toute la famille, le Mercedes Classe B allie des lignes modernes à un large espace intérieur. </p>
 
                                  <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Réserver maintenant</a></div>
+                                    <div class="buy_bt"><a href="reservation.php?numImma=FC-334-ZF">Réserver maintenant</a></div>
+                                    <div class="buy_bt"><a href="location.php?numImma=FC-334-ZF">Louer maintenant</a></div>
                                     <div class="seemore_bt"><a href="#">Voir plus</a></div>
                                  </div>
                               </div>
@@ -260,7 +296,8 @@
                                  <p >Ce monospace parfaitement adapté aux familles nombreuses dispose de 7 places et d'un coffre dont le volume dépasse les 700 litres.</p>
 
                                  <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Réserver maintenant</a></div>
+                                 <div class="buy_bt"><a href="reservation.php?numImma=BK-630NE">Réserver maintenant</a></div>
+                                    <div class="buy_bt"><a href="locztion.php?numImma=BK-630NE">Louer maintenant</a></div>
                                     <div class="seemore_bt"><a href="#">Voir plus</a></div>
                                  </div>
                               </div>
@@ -273,7 +310,8 @@
                                  <p>Certes, la Dacia Duster n'est pas la voiture aux lignes les plus esthétiques, mais il s'agit sûrement de la voiture familiale au meilleur rapport qualité/prix. </p>
 
                                  <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Réserver maintenant</a></div>
+                                    <div class="buy_bt"><a href="reservation.php?numImma=ST-016-EL">Réserver maintenant</a></div>
+                                    <div class="buy_bt"><a href="location.php?numImma=ST-016-EL">Louer maintenant</a></div>
                                     <div class="seemore_bt"><a href="#">Voir plus</a></div>
                                  </div>
                               </div>
@@ -284,9 +322,9 @@
                                  <p class="price_text">Price  <span style="color: #262626;">3000 dh</span></p>
                                  <div class="tshirt_img"><img src="images/Mercedes.png"></div>
                                  <p> le Mercedes Classe B est un monospace haut de gamme qui ravira toute la famille, le Mercedes Classe B allie des lignes modernes à un large espace intérieur. </p>
-
                                  <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Réserver maintenant</a></div>
+                                    <div class="buy_bt"><a href="reservation.php?numImma=FC-334-ZF">Réserver maintenant</a></div>
+                                    <div class="buy_bt"><a href="location.php?numImma=FC-334-ZF">Louer maintenant</a></div>
                                     <div class="seemore_bt"><a href="#">Voir plus</a></div>
                                  </div>
                               </div>
@@ -304,8 +342,8 @@
             </a>
          </div>
       </div>
-      <!-- fashion section end -->
-      <!-- electronic section start -->
+      <!-- family cars section end -->
+      <!-- traveling cars section start -->
       <div class="fashion_section">
          <div id="electronic_main_slider" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
@@ -317,210 +355,12 @@
                            <div class="col-lg-4 col-sm-4">
                               <div class="box_main">
                                  <h4 class="shirt_text">Citroën C4 Cactus</h4>
-                                 <p class="price_text">Prix <span style="color: #262626;">3000 dh</span></p>
+                                 <p class="price_text">Prix <span style="color: #262626;">135 dh</span></p>
                                  <div class="electronic_img"><img src="images/Citroën.png"></div>
                                  <p>une série rêvée pour la pratique du surf.</p>
                                  <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Réserver maintenant</a></div>
-                                    <div class="seemore_bt"><a href="#">Voir plus</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Land Rovr Defender</h4>
-                                 <p class="price_text">Prix  <span style="color: #262626;">3000 dh</span></p>
-                                 <div class="electronic_img"><img src="images/Land.png"></div>
-                                 <p>une série rêvée et idéale pour partir chasser.</p>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Réserver maintenant</a></div>
-                                    <div class="seemore_bt"><a href="#">Voir plus</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Jeep Wrangler</h4>
-                                 <p class="price_text">Prix <span style="color: #262626;">3000 dh</span></p>
-                                 <div class="electronic_img"><img src="images/Jeep.png"></div>
-                                 <p>Pour des balades dans les chemins cheveux au vent !</p>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Réserver maintenant</a></div>
-                                    <div class="seemore_bt"><a href="#">Voir plus</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="carousel-item">
-                  <div class="container">
-                     <h1 class="fashion_taital">Pour voyager</h1>
-                     <div class="fashion_section_2">
-                        <div class="row">
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Citroën C4 Cactus</h4>
-                                 <p class="price_text">Prix <span style="color: #262626;">3000 dh</span></p>
-                                 <div class="electronic_img"><img src="images/Citroën.png"></div>
-                                 <p>une série rêvée pour la pratique du surf.</p>
-
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Réserver maintenant</a></div>
-                                    <div class="seemore_bt"><a href="#">Voir plus</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Land Rovr Defender</h4>
-                                 <p class="price_text">Prix <span style="color: #262626;">3000 dh</span></p>
-                                 <div class="electronic_img"><img src="images/Land.png"></div>
-                                 <p>une série rêvée et idéale pour partir chasser.</p>
-
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Réserver maintenant</a></div>
-                                    <div class="seemore_bt"><a href="#">Voir plus</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Jeep Wrangler</h4>
-                                 <p class="price_text">Prix <span style="color: #262626;">3000 dh</span></p>
-                                 <div class="electronic_img"><img src="images/Jeep.png"></div>
-                                 <p>Pour des balades dans les chemins cheveux au vent !</p>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Réserver maintenant</a></div>
-                                    <div class="seemore_bt"><a href="#">Voir plus</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="carousel-item">
-                  <div class="container">
-                     <h1 class="fashion_taital">Pour voyager</h1>
-                     <div class="fashion_section_2">
-                        <div class="row">
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Citroën C4 Cactus</h4>
-                                 <p class="price_text">Prix<span style="color: #262626;">3000 dh</span></p>
-                                 <div class="electronic_img"><img src="images/Citroën.png"></div>
-                                 <p>une série rêvée pour la pratique du surf.</p>
-
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Réserver maintenant</a></div>
-                                    <div class="seemore_bt"><a href="#">Voir plus</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Land Rovr Defender</h4>
-                                 <p class="price_text">Prix<span style="color: #262626;">3000 dh</span></p>
-                                 <div class="electronic_img"><img src="images/Land.png"></div>
-                                 <p>une série rêvée et idéale pour partir chasser.</p>
-
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Réserver maintenant</a></div>
-                                    <div class="seemore_bt"><a href="#">Voir plus</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Jeep Wrangler</h4>
-                                 <p class="price_text">Prix<span style="color: #262626;">3000 dh</span></p>
-                                 <div class="electronic_img"><img src="images/Jeep.png"></div>
-                                 <p>Pour des balades dans les chemins cheveux au vent !</p>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Réserver maintenant</a></div>
-                                    <div class="seemore_bt"><a href="#">Voir plus</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <a class="carousel-control-prev" href="#electronic_main_slider" role="button" data-slide="prev">
-            <i class="fa fa-angle-left"></i>
-            </a>
-            <a class="carousel-control-next" href="#electronic_main_slider" role="button" data-slide="next">
-            <i class="fa fa-angle-right"></i>
-            </a>
-         </div>
-      </div>
-      <!-- electronic section end -->
-      <!-- jewellery  section start -->
-      <div class="fashion_section">
-         <div id="electronic_main_slider" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-               <div class="carousel-item active">
-                  <div class="container">
-                     <h1 class="fashion_taital">Pour voyager</h1>
-                     <div class="fashion_section_2">
-                        <div class="row">
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Citroën C4 Cactus</h4>
-                                 <p class="price_text">Prix <span style="color: #262626;">3000 dh</span></p>
-                                 <div class="electronic_img"><img src="images/Citroën.png"></div>
-                                 <p>une série rêvée pour la pratique du surf.</p>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Réserver maintenant</a></div>
-                                    <div class="seemore_bt"><a href="#">Voir plus</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Land Rovr Defender</h4>
-                                 <p class="price_text">Prix  <span style="color: #262626;">3000 dh</span></p>
-                                 <div class="electronic_img"><img src="images/Land.png"></div>
-                                 <p>une série rêvée et idéale pour partir chasser.</p>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Réserver maintenant</a></div>
-                                    <div class="seemore_bt"><a href="#">Voir plus</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Jeep Wrangler</h4>
-                                 <p class="price_text">Prix <span style="color: #262626;">3000 dh</span></p>
-                                 <div class="electronic_img"><img src="images/Jeep.png"></div>
-                                 <p>Pour des balades dans les chemins cheveux au vent !</p>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Réserver maintenant</a></div>
-                                    <div class="seemore_bt"><a href="#">Voir plus</a></div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="carousel-item">
-                  <div class="container">
-                     <h1 class="fashion_taital">Pour voyager</h1>
-                     <div class="fashion_section_2">
-                        <div class="row">
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Citroën C4 Cactus</h4>
-                                 <p class="price_text">Prix <span style="color: #262626;">3000 dh</span></p>
-                                 <div class="electronic_img"><img src="images/Citroën.png"></div>
-                                 <p>une série rêvée pour la pratique du surf.</p>
-
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Réserver maintenant</a></div>
+                                    <div class="buy_bt"><a href="reservation.php?numImma=GC-103-MF">Réserver maintenant</a></div>
+                                    <div class="buy_bt"><a href="location.php?numImma=GC-103-MF">Louer maintenant</a></div>
                                     <div class="seemore_bt"><a href="#">Voir plus</a></div>
                                  </div>
                               </div>
@@ -528,12 +368,12 @@
                            <div class="col-lg-4 col-sm-4">
                               <div class="box_main">
                                  <h4 class="shirt_text">Land Rover Defender</h4>
-                                 <p class="price_text">Prix <span style="color: #262626;">3000 dh</span></p>
+                                 <p class="price_text">Prix  <span style="color: #262626;">250 dh</span></p>
                                  <div class="electronic_img"><img src="images/Land.png"></div>
                                  <p>une série rêvée et idéale pour partir chasser.</p>
-
                                  <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Réserver maintenant</a></div>
+                                    <div class="buy_bt"><a href="reservation.php?numImma=MA-370-SS">Réserver maintenant</a></div>
+                                    <div class="buy_bt"><a href="location.php?numImma=MA_370-SS">Louer maintenant</a></div>
                                     <div class="seemore_bt"><a href="#">Voir plus</a></div>
                                  </div>
                               </div>
@@ -541,11 +381,12 @@
                            <div class="col-lg-4 col-sm-4">
                               <div class="box_main">
                                  <h4 class="shirt_text">Jeep Wrangler</h4>
-                                 <p class="price_text">Prix <span style="color: #262626;">3000 dh</span></p>
+                                 <p class="price_text">Prix <span style="color: #262626;">250 dh/j</span></p>
                                  <div class="electronic_img"><img src="images/Jeep.png"></div>
                                  <p>Pour des balades dans les chemins cheveux au vent !</p>
                                  <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Réserver maintenant</a></div>
+                                    <div class="buy_bt"><a href="reservation.php?numImma=MA-317-MS">Réserver maintenant</a></div>
+                                    <div class="buy_bt"><a href="location.php?numImma=MA-317-MS">Louer maintenant</a></div>
                                     <div class="seemore_bt"><a href="#">Voir plus</a></div>
                                  </div>
                               </div>
@@ -562,25 +403,27 @@
                            <div class="col-lg-4 col-sm-4">
                               <div class="box_main">
                                  <h4 class="shirt_text">Citroën C4 Cactus</h4>
-                                 <p class="price_text">Prix<span style="color: #262626;">3000 dh</span></p>
+                                 <p class="price_text">Prix <span style="color: #262626;">235 dh/j</span></p>
                                  <div class="electronic_img"><img src="images/Citroën.png"></div>
                                  <p>une série rêvée pour la pratique du surf.</p>
 
                                  <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Réserver maintenant</a></div>
+                                    <div class="buy_bt"><a href="reservation.php?numImma=GC-103-MF">Réserver maintenant</a></div>
+                                    <div class="buy_bt"><a href="location.php?numImma=GC-103-MF">Louer maintenant</a></div>
                                     <div class="seemore_bt"><a href="#">Voir plus</a></div>
                                  </div>
                               </div>
                            </div>
                            <div class="col-lg-4 col-sm-4">
                               <div class="box_main">
-                                 <h4 class="shirt_text">Land Rovr Defender</h4>
-                                 <p class="price_text">Prix<span style="color: #262626;">3000 dh</span></p>
+                                 <h4 class="shirt_text">Land Rover Defender</h4>
+                                 <p class="price_text">Prix <span style="color: #262626;">250 dh/j</span></p>
                                  <div class="electronic_img"><img src="images/Land.png"></div>
                                  <p>une série rêvée et idéale pour partir chasser.</p>
 
                                  <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Réserver maintenant</a></div>
+                                    <<div class="buy_bt"><a href="reservation.php?numImma=MA-370-SS">Réserver maintenant</a></div>
+                                    <div class="buy_bt"><a href="location.php?numImma=MA_370-SS">Louer maintenant</a></div>
                                     <div class="seemore_bt"><a href="#">Voir plus</a></div>
                                  </div>
                               </div>
@@ -588,11 +431,62 @@
                            <div class="col-lg-4 col-sm-4">
                               <div class="box_main">
                                  <h4 class="shirt_text">Jeep Wrangler</h4>
-                                 <p class="price_text">Prix<span style="color: #262626;">3000 dh</span></p>
+                                 <p class="price_text">Prix <span style="color: #262626;">250 dh/j</span></p>
                                  <div class="electronic_img"><img src="images/Jeep.png"></div>
                                  <p>Pour des balades dans les chemins cheveux au vent !</p>
                                  <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Réserver maintenant</a></div>
+                                 <div class="buy_bt"><a href="reservation.php?numImma=MA-317-MS">Réserver maintenant</a></div>
+                                    <div class="buy_bt"><a href="location.php?numImma=MA-317-MS">Louer maintenant</a></div>
+                                    <div class="seemore_bt"><a href="#">Voir plus</a></div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="carousel-item">
+                  <div class="container">
+                     <h1 class="fashion_taital">Pour voyager</h1>
+                     <div class="fashion_section_2">
+                        <div class="row">
+                           <div class="col-lg-4 col-sm-4">
+                              <div class="box_main">
+                                 <h4 class="shirt_text">Citroën C4 Cactus</h4>
+                                 <p class="price_text">Prix<span style="color: #262626;">135 dh/j</span></p>
+                                 <div class="electronic_img"><img src="images/Citroën.png"></div>
+                                 <p>une série rêvée pour la pratique du surf.</p>
+
+                                 <div class="btn_main">
+                                    <div class="buy_bt"><a href="reservation.php?numImma=GC-103-MF">Réserver maintenant</a></div>
+                                    <div class="buy_bt"><a href="location.php?numImma=GC-103-MF">Louer maintenant</a></div>
+                                    <div class="seemore_bt"><a href="#">Voir plus</a></div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-lg-4 col-sm-4">
+                              <div class="box_main">
+                                 <h4 class="shirt_text">Land Rover Defender</h4>
+                                 <p class="price_text">Prix<span style="color: #262626;">250 dh/j</span></p>
+                                 <div class="electronic_img"><img src="images/Land.png"></div>
+                                 <p>une série rêvée et idéale pour partir chasser.</p>
+
+                                 <div class="btn_main">
+                                    <div class="buy_bt"><a href="reservation.php?numImma=MA-370-SS">Réserver maintenant</a></div>
+                                    <div class="buy_bt"><a href="location.php?numImma=MA_370-SS">Louer maintenant</a></div>
+                                    <div class="seemore_bt"><a href="#">Voir plus</a></div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-lg-4 col-sm-4">
+                              <div class="box_main">
+                                 <h4 class="shirt_text">Jeep Wrangler</h4>
+                                 <p class="price_text">Prix<span style="color: #262626;">250 dh/j</span></p>
+                                 <div class="electronic_img"><img src="images/Jeep.png"></div>
+                                 <p>Pour des balades dans les chemins cheveux au vent !</p>
+                                 <div class="btn_main">
+                                 <div class="buy_bt"><a href="reservation.php?numImma=MA-317-MS">Réserver maintenant</a></div>
+                                    <div class="buy_bt"><a href="location.php?numImma=MA-317-MS">Louer maintenant</a></div>
                                     <div class="seemore_bt"><a href="#">Voir plus</a></div>
                                  </div>
                               </div>
@@ -610,7 +504,169 @@
             </a>
          </div>
       </div>
-      <!-- jewellery  section end -->
+      <!-- traveling cars section end -->
+      <!-- Luxe cars  section start -->
+      <div class="fashion_section">
+         <div id="electronic_main_slider" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+               <div class="carousel-item active">
+                  <div class="container">
+                     <h1 class="fashion_taital">Pour le luxe</h1>
+                     <div class="fashion_section_2">
+                        <div class="row">
+                           <div class="col-lg-4 col-sm-4">
+                              <div class="box_main">
+                                 <h4 class="shirt_text">Aston Martin</h4>
+                                 <p class="price_text">Prix <span style="color: #262626;">1500dh / jours</span></p>
+                                 <div class="electronic_img"><img src="images/voitureLuxe/Aston-Martin.jpeg"></div>
+                                 <p>Aston Martin représente le mix parfait entre voiture élégante et rapide.</p>
+                                 <div class="btn_main">
+                                    <div class="buy_bt"><a href="reservation.php?numImma=MA-80-DN">Réserver maintenant</a></div>
+                                    <div class="buy_bt"><a href="location.php?numImma=MA-80-DN">Louer maintenant</a></div>
+                                    <div class="seemore_bt"><a href="#">Voir plus</a></div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-lg-4 col-sm-4">
+                              <div class="box_main">
+                                 <h4 class="shirt_text">Bentley</h4>
+                                 <p class="price_text">Prix  <span style="color: #262626;">1900 dh/jour</span></p>
+                                 <div class="electronic_img"><img src="images/voitureLuxe/bentley.jpg"></div>
+                                 <p>une série rêvée et idéale pour partir chasser.</p>
+                                 <div class="btn_main">
+                                    <div class="buy_bt"><a href="reservation.php?numImma=MA-80-DN">Réserver maintenant</a></div>
+                                    <div class="buy_bt"><a href="location.php?numImma=MA-80-DN">Louer maintenant</a></div>
+                                    <div class="seemore_bt"><a href="#">Voir plus</a></div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-lg-4 col-sm-4">
+                              <div class="box_main">
+                                 <h4 class="shirt_text">Bugatti Chiron</h4>
+                                 <p class="price_text">Prix <span style="color: #262626;">2100 dh/jour</span></p>
+                                 <div class="electronic_img"><img src="images/voitureLuxe/Bugatti-Chiron.jpg"></div>
+                                 <p>Pour des balades dans les chemins cheveux au vent !</p>
+                                 <div class="btn_main">
+                                    <div class="buy_bt"><a href="reservation.php?numImma=CR-510-A">Réserver maintenant</a></div>
+                                    <div class="buy_bt"><a href="location.php?numImma=CR-510-A">Réserver maintenant</a></div>
+                                    <div class="seemore_bt"><a href="#">Voir plus</a></div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="carousel-item">
+                  <div class="container">
+                     <h1 class="fashion_taital">Pour le luxe</h1>
+                     <div class="fashion_section_2">
+                        <div class="row">
+                           <div class="col-lg-4 col-sm-4">
+                              <div class="box_main">
+                                 <h4 class="shirt_text">Ferrari</h4>
+                                 <p class="price_text">Prix <span style="color: #262626;">1700 dh/jour</span></p>
+                                 <div class="electronic_img"><img src="images/voitureLuxe/Ferari.jpeg"></div>
+                                 <p>une série rêvée pour la pratique du surf.</p>
+
+                                 <div class="btn_main">
+                                    <div class="buy_bt"><a href="reservation.php?numImma=MA-909-AA">Réserver maintenant</a></div>
+                                    <div class="buy_bt"><a href="location.php?numImma=MA-909-AA">Louer maintenant</a></div>
+                                    <div class="seemore_bt"><a href="#">Voir plus</a></div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-lg-4 col-sm-4">
+                              <div class="box_main">
+                                 <h4 class="shirt_text">Lamborghini</h4>
+                                 <p class="price_text">Prix <span style="color: #262626;">1600 dh/jour</span></p>
+                                 <div class="electronic_img"><img src="images/voitureLuxe/lamborghini.jpeg"></div>
+                                 <p>une série rêvée et idéale pour partir chasser.</p>
+
+                                 <div class="btn_main">
+                                    <div class="buy_bt"><a href="reservation.php?numImma=MA-01-AB">Réserver maintenant</a></div>
+                                    <div class="buy_bt"><a href="location.php?numImma=MA-01-AB">Louer maintenant</a></div>
+                                    <div class="seemore_bt"><a href="#">Voir plus</a></div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-lg-4 col-sm-4">
+                              <div class="box_main">
+                                 <h4 class="shirt_text">Porsche</h4>
+                                 <p class="price_text">Prix <span style="color: #262626;">1500 dh/jour</span></p>
+                                 <div class="electronic_img"><img src="images/voitureLuxe/porsche.jpeg"></div>
+                                 <p>Pour des balades dans les chemins cheveux au vent !</p>
+                                 <div class="btn_main">
+                                    <div class="buy_bt"><a href="reservation.php?numImma=MA-307-ND">Réserver maintenant</a></div>
+                                    <div class="buy_bt"><a href="location.php?numImma=MA-307-ND">Louer maintenant</a></div>
+                                    <div class="seemore_bt"><a href="#">Voir plus</a></div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="carousel-item">
+                  <div class="container">
+                     <h1 class="fashion_taital">Pour voyager</h1>
+                     <div class="fashion_section_2">
+                        <div class="row">
+                           <div class="col-lg-4 col-sm-4">
+                              <div class="box_main">
+                                 <h4 class="shirt_text">Citroën C4 Cactus</h4>
+                                 <p class="price_text">Prix<span style="color: #262626;">135 dh/j</span></p>
+                                 <div class="electronic_img"><img src="images/Citroën.png"></div>
+                                 <p>une série rêvée pour la pratique du surf.</p>
+
+                                 <div class="btn_main">
+                                    <div class="buy_bt"><a href="reservation.php?numImma=GC-103-MF">Réserver maintenant</a></div>
+                                    <div class="buy_bt"><a href="location.php?numImma=GC-103-MF">Louer maintenant</a></div>
+                                    <div class="seemore_bt"><a href="#">Voir plus</a></div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-lg-4 col-sm-4">
+                              <div class="box_main">
+                                 <h4 class="shirt_text">Land Rover Defender</h4>
+                                 <p class="price_text">Prix<span style="color: #262626;">250 dh/j</span></p>
+                                 <div class="electronic_img"><img src="images/Land.png"></div>
+                                 <p>une série rêvée et idéale pour partir chasser.</p>
+
+                                 <div class="btn_main">
+                                    <div class="buy_bt"><a href="reservation.php?numImma=MA-370-SS">Réserver maintenant</a></div>
+                                    <div class="buy_bt"><a href="location.php?numImma=MA-370-SS">Louer maintenant</a></div>
+                                    <div class="seemore_bt"><a href="#">Voir plus</a></div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-lg-4 col-sm-4">
+                              <div class="box_main">
+                                 <h4 class="shirt_text">Jeep Wrangler</h4>
+                                 <p class="price_text">Prix<span style="color: #262626;">250 dh/j</span></p>
+                                 <div class="electronic_img"><img src="images/Jeep.png"></div>
+                                 <p>Pour des balades dans les chemins cheveux au vent !</p>
+                                 <div class="btn_main">
+                                    <div class="buy_bt"><a href="reservation.php?numImma=MA-317-MS">Réserver maintenant</a></div>
+                                    <div class="buy_bt"><a href="reservation.php?numImma=MA-317-MS">Louer maintenant</a></div>
+                                    <div class="seemore_bt"><a href="#">Voir plus</a></div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <a class="carousel-control-prev" href="#electronic_main_slider" role="button" data-slide="prev">
+            <i class="fa fa-angle-left"></i>
+            </a>
+            <a class="carousel-control-next" href="#electronic_main_slider" role="button" data-slide="next">
+            <i class="fa fa-angle-right"></i>
+            </a>
+         </div>
+      </div>
+      <!-- luxe cars section end -->
       <!-- footer section start -->
       <div class="footer_section layout_padding">
          <div class="container">
@@ -618,15 +674,15 @@
            
             <div class="footer_menu">
                <ul>
-                  <li><a href="index.html">Page d'acceuil</a></li>
-                           <li><a href="connexion.html">se connecter</a></li>
-                           <li><a href="#">creer compte</a></li>
-                           
-                           <li><a href="#">Réserver</a></li>
-                           <li><a href="#">louer</a></li> 
+                  <li><a href="index.php">Page d'accueil</a></li>
+                           <li><a href="reservation.php?numImma=">Réserver</a></li>
+                           <li><a href="location.php?numImma=">Louer</a></li> 
                </ul>
             </div>
-            <div class="location_main">numero vert: <a href="#">+21206020202</a></div>
+            <div class="location_main">
+               numero vert: <a href="tel:06020232023">+2126020232023</a><br>
+               email : <a href="mailto:support@drivenow.com">support@drivenow.com</a>
+            </div>
          </div>
       </div>
       <!-- footer section end -->

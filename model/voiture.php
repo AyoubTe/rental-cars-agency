@@ -2,12 +2,12 @@
     class Voiture {
         private $numeroImmatriculation, $couleur, $puissance, $modele, $prix, $disponible;
         public function __construct($numero, $color, $puis, $model, $price, $dispo){
-            $numeroImmatriculation = $numero;
-            $disponible = $dispo;
-            $prix = $price;
-            $modele = $model;
-            $puissance = $puis;
-            $couleur = $color;
+            $this->numeroImmatriculation = $numero;
+            $this->disponible = $dispo;
+            $this->prix = $price;
+            $this->modele = $model;
+            $this->puissance = $puis;
+            $this->couleur = $color;
         }
 
         /**

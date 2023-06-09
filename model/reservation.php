@@ -1,12 +1,12 @@
 <?php
     class Reservation{
-        private $idReservation, $idClient, $dateResevation, $nbrJours, $numeroImmatriculation;
-        public function __construct($idr, $idc, $dater, $nbjrs, $numero){
-            $idReservation = $idr;
-            $idClient = $idc;
-            $dateResevation = $dater;
-            $nbrJours = $nbjrs;
-            $numeroImmatriculation = $numero;
+        private $idReservation, $cin, $dateResevation, $nbrJours, $numeroImmatriculation;
+        public function __construct($idr, $carte, $dater, $nbjrs, $numero){
+            $this->idReservation = $idr;
+            $this->cin = $carte;
+            $this->dateResevation = $dater;
+            $this->nbrJours = $nbjrs;
+            $this->numeroImmatriculation = $numero;
         }
 
         /**
@@ -20,9 +20,9 @@
         /**
          * Get the value of idClient
          */ 
-        public function getIdClient()
+        public function getCIN()
         {
-                return $this->idClient;
+                return $this->cin;
         }
 
         /**

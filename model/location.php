@@ -1,13 +1,13 @@
 <?php
     class Location{
-        private $idLocation, $numeroImmatriculation, $idClient, $dateLocation, $nbrJours, $dateRetour;
-        public function __construct($id, $numero, $idc, $datel, $nbjrs, $dater){
-            $idLocation = $id;
-            $numeroImmatriculation = $numero;
-            $idClient = $idc;
-            $dateLocation = $datel;
-            $nbrJours = $nbjrs;
-            $dateRetour = $dater;
+        private $idLocation, $numeroImmatriculation, $cin, $dateLocation, $nbrJours, $dateRetour;
+        public function __construct($id, $numero, $carte, $datel, $nbjrs, $dater){
+            $this->idLocation = $id;
+            $this->numeroImmatriculation = $numero;
+            $this->cin = $carte;
+            $this->dateLocation = $datel;
+            $this->nbrJours = $nbjrs;
+            $this->dateRetour = $dater;
         }
 
         /**
@@ -29,9 +29,9 @@
         /**
          * Get the value of idClient
          */ 
-        public function getIdClient()
+        public function getCin()
         {
-                return $this->idClient;
+                return $this->cin;
         }
 
         /**

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Paiement</title>
+    <!-- basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- mobile metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <!-- site metas -->
+
+
+    <!-- bootstrap css -->
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+    <!-- style css -->
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <!-- Responsive-->
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- fevicon -->
+    <link rel="icon" href="images/fevicon.png" type="image/gif" />
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="bootstrap/css/jquery.mCustomScrollbar.min.css">
+    <!-- Tweaks for older IEs-->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <!-- fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+    <!-- font awesome -->
+    <link rel="stylesheet" type="text/css"
+        href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!--  -->
+    <!-- owl stylesheets -->
+    <link href="https://fonts.googleapis.com/css?family=Great+Vibes|Poppins:400,700&display=swap&subset=latin-ext"
+        rel="stylesheet">
+    <link rel="stylesheet" href="bootstrap/css/owl.carousel.min.css">
+    <link rel="stylesoeet" href="bootstrap/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css"
+        media="screen">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: url(images/banner-bg.png);
+            padding: 30px 10px;
+        }
+
+
+        .card {
+
+            margin-top: 15px;
+            width: 550px;
+            max-height: 700px;
+            margin: auto;
+            color: black;
+            border-radius: 20px;
+            background-color: #d98003;
+            padding: 30px 20px;
+        }
+
+        p {
+            margin: 0px;
+        }
+
+        .container .h8 {
+            font-size: 30px;
+            font-weight: 800;
+            text-align: center;
+        }
+
+        .btn.btn-primary {
+            width: 100%;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 15px;
+            background-image: linear-gradient(to right, #77A1D3 0%, #79CBCA 51%, #77A1D3 100%);
+            border-radius: 15px;
+            transition: 0.5s;
+            background-size: 200% auto;
+            margin-top: 15px;
+
+        }
+
+
+        .btn.btn.btn-primary:hover {
+            background-position: right center;
+            color: #5e5c5c;
+            text-decoration: none;
+        }
+
+
+
+        .btn.btn-primary:hover .fas.fa-arrow-right {
+            transform: translate(15px);
+            transition: transform 0.2s ease-in;
+        }
+
+        .form-control {
+            color: rgb(0, 0, 0);
+            background-color: #ffffff;
+            border: 2px solid transparent;
+            height: 60px;
+            border-radius: 20px;
+            padding-left: 20px;
+            vertical-align: middle;
+            width: 500px;
+            margin-top: 7px;
+            margin-bottom: 7px;
+        }
+
+        .form-control:focus {
+            color: rgb(0, 0, 0);
+            background-color: #ffffff;
+            border: 2px solid #ffffff;
+            box-shadow: none;
+        }
+
+        .text {
+            font-size: 14px;
+            font-weight: 600;
+
+        }
+
+        ::placeholder {
+            font-size: 14px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container p-0">
+        <div class="card px-4">
+            <p class="h8 py-3">Paiement </p>
+            <div class="row gx-3">
+                <div class="col-12">
+                    <div class="d-flex flex-column">
+                        <p class="text mb-1">nom sur carte</p>
+                        <input class="form-control mb-3" type="text" placeholder="titulaire de compte" value="">
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="d-flex flex-column">
+                        <p class="text mb-1">numero de la carte</p>
+                        <input class="form-control mb-3" type="text" placeholder="1234 5678 435678">
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="d-flex flex-column">
+                        <p class="text mb-1">date d'expiration</p>
+                        <input class="form-control mb-3" type="text" placeholder="MM/YYYY">
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="d-flex flex-column">
+                        <p class="text mb-1">CVV/CVC</p>
+                        <input class="form-control mb-3 pt-2 " type="password" placeholder="***">
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="btn btn-primary mb-3" onclick='document.location.href="location_reussite.html"'>
+                        <span class="ps-3" style="text-align: center; display: block; margin: 0 auto;" onclick="timing()">Payer</span>
+                        <span class="fas fa-arrow-right"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="bootstrap/js/jquery.min.js"></script>
+    <script src="bootstrap/js/popper.min.js"></script>
+    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="bootstrap/js/jquery-3.0.0.min.js"></script>
+    <script src="bootstrap/js/plugin.js"></script>
+    <!-- sidebar -->
+    <script src="bootstrap/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="bootstrap/js/custom.js"></script>
+    <script type="text/javascript">
+        // Redirection vers le compte après un délai de 5 secondes
+        function redirectToSuccesLocation() {
+          window.location.href = "location_reussite.html";
+        }
+  
+        // Fonction d'initialisation
+        function timing() {
+          setTimeout(redirectToSuccesLocation, 5000); // Délai de 5 secondes
+        }
+      </script>
+</body>
+
+</html>
