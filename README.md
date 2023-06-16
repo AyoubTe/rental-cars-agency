@@ -49,7 +49,7 @@ To run the application on your local machine, follow these steps:
    npm start
    ```
 
-2. **Access** the application by navigating to `http://localhost:3000` in your web browser.
+2. **Access** the application by navigating to `http://localhost` in your web browser using XAMAPP or WAMP.
 
 3. **Explore** the various features of the application, such as browsing available cars, making bookings, and managing the administration panel.
 
