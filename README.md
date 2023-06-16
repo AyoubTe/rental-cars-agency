@@ -1,4 +1,4 @@
-# rentalCarAgency
+# Rental car agency
 # Rental Car Agency Repository
 
 Welcome to the Rental Car Agency repository! This repository serves as the codebase for our rental car agency application. Whether you're a developer looking to contribute or a user interested in exploring our code, this README will provide you with the necessary information to get started.
