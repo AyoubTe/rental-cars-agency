@@ -85,7 +85,4 @@ We will review your pull request and get back to you as soon as possible.
 The Rental Car Agency repository is licensed under the [MIT License](LICENSE).
 
 ## Contact
-If you have any questions or suggestions regarding the Rental Car Agency project, please feel free to contact us:
-
-- Email: [info@rentalcaragency.com](mailto:info@rentalcaragency.com)
-- Website: [https://www.rentalcaragency.com](https://www.rentalcaragency.com)
+If you have any questions or suggestions regarding the Rental Car Agency project, please feel free to contact us.
