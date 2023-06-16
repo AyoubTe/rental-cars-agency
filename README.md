@@ -19,12 +19,12 @@ To get started with the Rental Car Agency application on your local machine, ple
 
 1. **Clone** the repository to your local machine using the following command:
    ```
-   git clone https://github.com/your-username/rental-car-agency.git
+   git clone https://github.com/your-username/rental-cars-agency.git
    ```
 
 2. **Navigate** to the project directory:
    ```
-   cd rental-car-agency
+   cd rental-cars-agency
    ```
 
 3. **Install** the required dependencies using a package manager such as npm or yarn:
